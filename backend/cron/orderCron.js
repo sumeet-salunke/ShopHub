@@ -6,8 +6,6 @@ import sendEmail from "../utils/sendEmail.js";
 export const startOrderCron = () => {
   cron.schedule("*/2 * * * *", async () => {
     try {
-      console.log("Running order delivery cron...");
-
       const timeLimit = new Date(Date.now() - 2 * 60 * 1000); // 2 mins
 
       const orders = await Order.find({
@@ -25,8 +23,6 @@ export const startOrderCron = () => {
           html: `<h2>Your order has been delievered `,
         });
       }
-
-      console.log(`Delivered ${orders.length} orders`);
 
     } catch (error) {
       console.error("Cron error:", error);

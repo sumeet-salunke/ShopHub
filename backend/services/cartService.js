@@ -28,7 +28,6 @@ const formatCart = async (cart) => {
   };
 };
 export const addToCartService = async (productId, quantity, userId) => {
-  console.log("user", userId);
   //validate quantity
   quantity = Number(quantity);
   if (!Number.isInteger(quantity) || quantity <= 0) {

@@ -78,7 +78,6 @@ export const getProductsService = async (query) => {
          filter.price.$lte = maxPrice;
       }
    }
-   console.log("Filter:", filter);
    //4.fetch products
    const products = await Product.find(filter).skip(skip).limit(limit).sort({ createdAt: -1 });
    //5.count total products

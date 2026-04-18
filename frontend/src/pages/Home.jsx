@@ -44,16 +44,12 @@ export const Home = () => {
       const res = await api.get('/products', {
         params: { page, limit: 12, ts: Date.now() },
       });
-      console.log('Products response:', res.data);
       setProducts(getProductsFromResponse(res.data));
       setProductMeta({
         total: Number(res.data?.total || res.data?.data?.total || 0),
         totalPages: Math.max(1, Number(res.data?.totalPages || res.data?.data?.totalPages || 1)),
       });
     } catch (err) {
-      if (err.response?.status === 304) {
-        console.log('Products returned 304 with no response body.');
-      }
       addToast(err.response?.data?.message || 'Failed to load products', 'error');
       setProducts([]);
     } finally {
@@ -197,7 +193,7 @@ export const Home = () => {
           <h2>Featured Products</h2>
           <p>Discover the latest items ready for your cart.</p>
         </div>
-      
+
         {visibleProducts.length === 0 ? (
           <div className="no-products">No products found.</div>
         ) : (

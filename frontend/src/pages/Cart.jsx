@@ -29,7 +29,6 @@ export const Cart = () => {
     setLoading(true);
     try {
       const { data } = await privateApi.get('/auth/cart');
-      console.log('Cart response:', data);
       setCart(data.data);
     } catch (err) {
       addToast(err.response?.data?.message || 'Failed to load cart', 'error');
@@ -47,7 +46,6 @@ export const Cart = () => {
     if (newQty < 1) return;
     try {
       const { data } = await privateApi.patch(`/auth/cart/${productId}`, { quantity: newQty });
-      console.log('Updated cart response:', data);
       setCart(data.data);
     } catch (err) {
       addToast(err.response?.data?.message || 'Failed to update quantity', 'error');
@@ -57,7 +55,6 @@ export const Cart = () => {
   const removeItem = async (productId) => {
     try {
       const { data } = await privateApi.delete(`/auth/cart/${productId}`);
-      console.log('Remove cart response:', data);
       setCart(data.data);
       addToast('Item removed', 'success');
     } catch (err) {
@@ -89,7 +86,7 @@ export const Cart = () => {
       {validItems.length === 0 ? (
         <div className="empty-cart">
           <p>Your cart is empty.</p>
-          <Button onClick={() => navigate('/')} style={{width: '200px', marginTop: '20px'}}>Continue Shopping</Button>
+          <Button onClick={() => navigate('/')} style={{ width: '200px', marginTop: '20px' }}>Continue Shopping</Button>
         </div>
       ) : (
         <div className="cart-content">
@@ -112,9 +109,9 @@ export const Cart = () => {
                 </div>
                 <div className="cart-item-actions">
                   <div className="quantity-controls">
-                    <button onClick={() => updateQuantity(item.productId?._id, item.quantity, -1)} disabled={!item.productId?._id}><Minus size={14}/></button>
+                    <button onClick={() => updateQuantity(item.productId?._id, item.quantity, -1)} disabled={!item.productId?._id}><Minus size={14} /></button>
                     <span>{item.quantity}</span>
-                    <button onClick={() => updateQuantity(item.productId?._id, item.quantity, 1)} disabled={!item.productId?._id}><Plus size={14}/></button>
+                    <button onClick={() => updateQuantity(item.productId?._id, item.quantity, 1)} disabled={!item.productId?._id}><Plus size={14} /></button>
                   </div>
                   <p className="cart-item-subtotal">₹{(Number(item.productId?.price || 0) * item.quantity).toFixed(2)}</p>
                   <button className="remove-btn" onClick={() => removeItem(item.productId?._id)} disabled={!item.productId?._id}>
@@ -124,7 +121,7 @@ export const Cart = () => {
               </div>
             ))}
           </div>
-          
+
           <div className="cart-summary">
             <h3>Order Summary</h3>
             <div className="summary-row">

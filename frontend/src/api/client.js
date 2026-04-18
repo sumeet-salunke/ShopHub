@@ -1,11 +1,9 @@
 import axios from "axios";
 
 export const API_BASE_URL = import.meta.env.VITE_API_URL || (() => {
-  console.warn("VITE_API_URL is not set. Check your .env file.");
   return "http://localhost:5000/api";
 })();
 
-console.log("API_BASE_URL:", API_BASE_URL);
 
 // Create central axios instance
 export const api = axios.create({

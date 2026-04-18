@@ -3,7 +3,6 @@
 import express from "express";
 import helmet from "helmet";
 import cors from "cors";
-import { corsOptions } from "./config/corsConfig.js";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import path from "path";
@@ -30,7 +29,10 @@ app.use(helmet({
 }));
 
 //6. enable cors
-app.use(cors(corsOptions));
+app.use(cors({
+  origin: true,
+  credentials: true,
+}));
 app.use((req, res, next) => {
   res.set("Cache-Control", "no-store");
   next();

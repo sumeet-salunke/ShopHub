@@ -27,8 +27,6 @@ export const corsOptions = {
       return callback(null, true);
     }
 
-    console.log("❌ CORS blocked:", origin); // 🔥 debug
-
     return callback(new Error("Not allowed by CORS"));
   },
 
