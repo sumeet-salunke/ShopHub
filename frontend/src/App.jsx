@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ToastProvider } from './context/ToastContext';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { Layout } from './components/layout/Layout';
@@ -19,10 +19,12 @@ const ProtectedRoute = ({ children }) => {
 };
 
 export default function App() {
+  const basename = import.meta.env.PROD ? "/ShopHub" : "/";
+
   return (
     <ToastProvider>
       <AuthProvider>
-        <HashRouter>
+        <BrowserRouter basename={basename}>
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
@@ -37,7 +39,7 @@ export default function App() {
               <Route path="*" element={<Navigate to="/" replace />} />
             </Route>
           </Routes>
-        </HashRouter>
+        </BrowserRouter>
       </AuthProvider>
     </ToastProvider>
   );
