@@ -91,7 +91,13 @@ export const placeOrderService = async (userId) => {
     //9. commit
     await session.commitTransaction();
     //10. send email AFTER commit
-    const baseUrl = process.env.BASE_URL || "https://shophub-backend-nble.onrender.com";
+    const baseUrl = (() => {
+      const envUrl = process.env.BASE_URL?.trim();
+      if (envUrl && /^https?:\/\//i.test(envUrl)) {
+        return envUrl.replace(/\/+$/, "");
+      }
+      return "https://shophub-backend-nble.onrender.com";
+    })();
     const confirmUrl = `${baseUrl}/api/orders/confirm/${rawToken}`;
     await sendEmail({
       to: user.email,

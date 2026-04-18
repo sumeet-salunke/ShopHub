@@ -52,7 +52,13 @@ export const handleRegister = async ({ name, email, password }) => {
     expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
   });
   //6. create verification link
-  const baseUrl = process.env.BASE_URL || "https://shophub-backend-nble.onrender.com";
+  const baseUrl = (() => {
+    const envUrl = process.env.BASE_URL?.trim();
+    if (envUrl && /^https?:\/\//i.test(envUrl)) {
+      return envUrl.replace(/\/+$/, "");
+    }
+    return "https://shophub-backend-nble.onrender.com";
+  })();
   const verificationLink = `${baseUrl}/api/auth/verify-email?token=${verificationToken}`;
   //7. send verification link
   await sendEmail({
