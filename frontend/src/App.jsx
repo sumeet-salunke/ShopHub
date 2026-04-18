@@ -26,6 +26,10 @@ export default function App() {
       <AuthProvider>
         <BrowserRouter basename={basename}>
           <Routes>
+            {/* Public routes without layout */}
+            <Route path="/reset-password" element={<ResetPassword />} />
+
+            {/* Routes with layout */}
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
               <Route path="products" element={<Home />} />
@@ -35,7 +39,6 @@ export default function App() {
               <Route path="login" element={<Login />} />
               <Route path="register" element={<Register />} />
               <Route path="forgot-password" element={<ForgotPassword />} />
-              <Route path="reset-password" element={<ResetPassword />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Route>
           </Routes>
