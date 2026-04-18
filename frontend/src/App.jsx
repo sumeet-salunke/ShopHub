@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ToastProvider } from './context/ToastContext';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { Layout } from './components/layout/Layout';
@@ -13,7 +13,7 @@ import { ResetPassword } from './pages/ResetPassword';
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
-  if (loading) return <div style={{textAlign: 'center', padding: '40px'}}>Loading...</div>;
+  if (loading) return <div style={{ textAlign: 'center', padding: '40px' }}>Loading...</div>;
   if (!isAuthenticated) return <Navigate to="/login" />;
   return children;
 };
@@ -22,20 +22,20 @@ export default function App() {
   return (
     <ToastProvider>
       <AuthProvider>
-        <BrowserRouter>
+        <HashRouter>
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
               <Route path="cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
               <Route path="orders" element={<ProtectedRoute><Orders /></ProtectedRoute>} />
-              
+
               <Route path="login" element={<Login />} />
               <Route path="register" element={<Register />} />
               <Route path="forgot-password" element={<ForgotPassword />} />
               <Route path="reset-password" element={<ResetPassword />} />
             </Route>
           </Routes>
-        </BrowserRouter>
+        </HashRouter>
       </AuthProvider>
     </ToastProvider>
   );
