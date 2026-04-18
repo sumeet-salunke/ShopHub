@@ -19,12 +19,10 @@ const ProtectedRoute = ({ children }) => {
 };
 
 export default function App() {
-  const basename = import.meta.env.PROD ? "/ShopHub" : "/";
-
   return (
     <ToastProvider>
       <AuthProvider>
-        <HashRouter basename={basename}>
+        <HashRouter>
           <Routes>
             {/* Public routes without layout */}
             <Route path="/reset-password" element={<ResetPassword />} />
