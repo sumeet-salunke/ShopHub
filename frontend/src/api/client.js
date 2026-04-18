@@ -1,6 +1,11 @@
 import axios from "axios";
 
-export const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+export const API_BASE_URL = import.meta.env.VITE_API_URL || (() => {
+  console.warn("VITE_API_URL is not set. Check your .env file.");
+  return "http://localhost:5000/api";
+})();
+
+console.log("API_BASE_URL:", API_BASE_URL);
 
 // Create central axios instance
 export const api = axios.create({
@@ -43,23 +48,23 @@ export const setupInterceptors = (getAccessToken, setAccessToken, logout) => {
     (response) => response,
     async (error) => {
       const originalRequest = error.config;
-      
+
       // If 401 and not already retried
       if (error.response?.status === 401 && !originalRequest._retry) {
         originalRequest._retry = true;
-        
+
         try {
           // Attempt refresh
           const res = await api.post('/auth/refresh-token');
           const newAccessToken = res.data.accessToken;
-          
+
           setAccessToken(newAccessToken);
-          
+
           // Modify original request with new token
           originalRequest.headers = originalRequest.headers || {};
           originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
           originalRequest._retryAttempt = true; // prevent infinite loops
-          
+
           return privateApi(originalRequest);
         } catch (refreshErr) {
           // Refresh failed, user is actually logged out
@@ -67,7 +72,7 @@ export const setupInterceptors = (getAccessToken, setAccessToken, logout) => {
           return Promise.reject(refreshErr);
         }
       }
-      
+
       return Promise.reject(error);
     }
   );
