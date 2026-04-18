@@ -293,7 +293,7 @@ export const handleForgotPassword = async (email) => {
     }
     return "https://sumeet-salunke.github.io/ShopHub";
   })();
-  const resetLink = `${baseUrl}/reset-password?token=${rawToken}`;
+  const resetLink = `${baseUrl}/#/reset-password?token=${rawToken}`;
 
   await sendEmail({
     to: user.email,
