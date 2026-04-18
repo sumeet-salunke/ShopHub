@@ -1,0 +1,125 @@
+.layout-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar {
+  background-color: var(--nav-bg);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  color: white;
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  padding: 0 16px;
+}
+
+.nav-brand {
+  font-size: 24px;
+  font-weight: 700;
+  color: white;
+  letter-spacing: -0.5px;
+  padding: 8px;
+  border-radius: 2px;
+  border: 1px solid transparent;
+}
+
+.nav-brand:hover {
+  border: 1px solid white;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-item, .nav-user-greeting, .logout-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+  padding: 8px;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.nav-item:hover, .nav-user-greeting:hover, .logout-btn:hover {
+  border: 1px solid white;
+}
+
+.greeting-small, .nav-item-top {
+  font-size: 11px;
+  line-height: 14px;
+  color: #ccc;
+}
+
+.greeting-large, .nav-item-bottom {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 15px;
+}
+
+.cart-nav-item {
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.cart-text {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 15px;
+  margin-bottom: 2px;
+}
+
+.logout-btn {
+  background: none;
+  align-items: center;
+  flex-direction: row;
+  gap: 6px;
+}
+
+.logout-btn span {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.main-content {
+  flex: 1;
+  padding: 32px 0;
+}
+
+@media (max-width: 768px) {
+  .nav-container {
+    height: auto;
+    min-height: 64px;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+
+  .nav-links {
+    width: 100%;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .nav-link span, .nav-user span {
+    display: none;
+  }
+
+  .nav-user {
+    padding-left: 0;
+    border-left: 0;
+  }
+}
