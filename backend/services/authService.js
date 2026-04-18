@@ -286,7 +286,14 @@ export const handleForgotPassword = async (email) => {
     expiresAt: new Date(Date.now() + 15 * 60 * 1000),
   });
   // Point link to frontend for React-based password reset
-  const resetLink = `http://localhost:5173/reset-password?token=${rawToken}`;
+  const baseUrl = (() => {
+    const envUrl = process.env.BASE_URL?.trim();
+    if (envUrl && /^https?:\/\//i.test(envUrl)) {
+      return envUrl.replace(/\/+$/, "");
+    }
+    return "https://sumeet-salunke.github.io/ShopHub";
+  })();
+  const resetLink = `${baseUrl}/reset-password?token=${rawToken}`;
 
   await sendEmail({
     to: user.email,
